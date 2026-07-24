@@ -12,6 +12,10 @@ class BattleInterface {
 		// Initialize battle interface
 	}
 
+	public function disposePreviousLocation():Void {
+		// Dispose previous location data
+	}
+
 	public function initializeFightHud():Void {
 		// Initialize fight HUD
 	}

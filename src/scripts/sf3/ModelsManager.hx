@@ -1,4 +1,4 @@
-package scripts.sf3.gamemodels;
+package scripts.sf3;
 
 class ModelsManager {
 
@@ -14,6 +14,13 @@ class ModelsManager {
 
 	public function initialize():Void {
 		// Initialize models manager
+	}
+
+	public function disposePreviousLocation():Void {
+		// Dispose previous location models
+		player = null;
+		enemy = null;
+		models = [];
 	}
 
 	public function updateModels():Void {

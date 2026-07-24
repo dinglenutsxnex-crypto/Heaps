@@ -12,6 +12,10 @@ class EffectsManager {
 		// Initialize effects manager
 	}
 
+	public function disposePreviousLocation():Void {
+		// Dispose previous location effects
+	}
+
 	public static function reset():Void {
 		// Reset effects
 	}

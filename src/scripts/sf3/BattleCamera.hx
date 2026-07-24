@@ -46,4 +46,14 @@ class BattleCamera {
 	public function update(dt:Float):Void {
 		// Update camera
 	}
+
+	public function initialize():Void {
+		active = true;
+	}
+
+	public function disposePreviousLocation():Void {
+		// Dispose previous location data
+		player = null;
+		enemy = null;
+	}
 }
