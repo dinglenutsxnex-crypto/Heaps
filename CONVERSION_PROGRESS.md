@@ -14,6 +14,11 @@ This file tracks the conversion progress from Unity C# to Haxe/Heaps.
 | `src/scripts/BootLogger.hx` | `BootLogger.cs` | ✅ Done | Boot logging utility |
 | `src/scripts/GlobalTimer.hx` | `Nekki/Utils/GlobalTimer.cs` | ✅ Done | Server time sync, timer events |
 | `src/scripts/sf3/LoadScreen.hx` | `LoadScreen.cs` | ✅ Done | Loading screen UI |
+| `src/scripts/ModuleController.hx` | `BaseModuleController.cs` | ✅ Done | Module management |
+| `src/scripts/sf3/SF3Utils.hx` | `SF3/SF3Utils.cs` | ✅ Done | Utility functions |
+| `src/scripts/sf3/battleutils/SF3BattleUtils.hx` | `SF3/BattleUtils/SF3BattleUtils.cs` | ✅ Done | FPS and ping utilities |
+| `src/scripts/sf3/ESurfaceType.hx` | `SF3/ESurfaceType.cs` | ✅ Done | Surface type enum |
+| `src/scripts/sf3/Sandbox.hx` | `SF3/Sandbox.cs` | ✅ Done | Sandbox/console commands |
 
 ### Scene Management
 | File | Unity Source | Status | Notes |
