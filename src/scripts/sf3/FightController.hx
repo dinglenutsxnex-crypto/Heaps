@@ -1,16 +1,16 @@
 package scripts.sf3;
 
-class FightController {
+enum EFightStage {
+	None;
+	FightStart;
+	FightEnd;
+	RoundStart;
+	RoundEnd;
+	RoundFightStart;
+	RoundFightEnd;
+}
 
-	public enum EFightStage {
-		None;
-		FightStart;
-		FightEnd;
-		RoundStart;
-		RoundEnd;
-		RoundFightStart;
-		RoundFightEnd;
-	}
+class FightController {
 
 	public var roundController:RoundController;
 	public var rewardMultipyerCounter:RewardMultipyerCounter;
