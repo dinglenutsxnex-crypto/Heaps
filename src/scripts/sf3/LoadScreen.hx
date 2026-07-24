@@ -6,8 +6,6 @@ class LoadScreen {
 
 	private var loaderVisible:Bool = false;
 
-	public static var loaderVisible(get, never):Bool;
-
 	public function new() {
 		instance = this;
 	}
@@ -31,11 +29,7 @@ class LoadScreen {
 		}
 	}
 
-	private static function get_loaderVisible():Bool {
+	public static function get_loaderVisible():Bool {
 		return instance != null && instance.loaderVisible;
-	}
-
-	public static function clear():Void {
-		instance = null;
 	}
 }
