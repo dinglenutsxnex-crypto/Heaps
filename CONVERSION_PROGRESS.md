@@ -19,6 +19,30 @@ This file tracks the conversion progress from Unity C# to Haxe/Heaps.
 | `src/scripts/sf3/battleutils/SF3BattleUtils.hx` | `SF3/BattleUtils/SF3BattleUtils.cs` | ✅ Done | FPS and ping utilities |
 | `src/scripts/sf3/ESurfaceType.hx` | `SF3/ESurfaceType.cs` | ✅ Done | Surface type enum |
 | `src/scripts/sf3/Sandbox.hx` | `SF3/Sandbox.cs` | ✅ Done | Sandbox/console commands |
+| `src/scripts/sf3/ConfigsSourceResolver.hx` | `ConfigsSourceResolver.cs` | ✅ Done | Config loading |
+| `src/scripts/sf3/GlobalLoad.hx` | `GlobalLoad.cs` | ✅ Done | Asset loading |
+| `src/scripts/sf3/NetworkConfigManager.hx` | `NetworkConfigManager.cs` | ✅ Done | Network config |
+| `src/scripts/sf3/InternalSettingsSF3.hx` | `InternalSettingsSF3.cs` | ✅ Done | Internal settings |
+| `src/scripts/sf3/JS.hx` | `JS.cs` | ✅ Done | JS integration |
+| `src/scripts/sf3/GameSettings.hx` | `GameSettings.cs` | ✅ Done | Game settings |
+| `src/scripts/sf3/moves/Condition.hx` | `SF3/Moves/Condition.cs` | ✅ Done | Battle conditions |
+| `src/scripts/sf3/moves/TriggerEvent.hx` | `SF3/Moves/TriggerEvent.cs` | ✅ Done | Trigger events |
+| `src/scripts/sf3/moves/TriggerAction.hx` | `SF3/Moves/TriggerAction.cs` | ✅ Done | Trigger actions |
+| `src/scripts/sf3/items/ItemsManager.hx` | `SF3/Items/ItemsManager.cs` | ✅ Done | Items manager |
+| `src/scripts/sf3/FightSettings.hx` | `SF3/FightSettings.cs` | ✅ Done | Fight settings |
+| `src/scripts/sf3/moves/MovesController.hx` | `SF3/Moves/MovesController.cs` | ✅ Done | Moves controller |
+| `src/scripts/sf3/UserDataController.hx` | `SF3/UserDataController.cs` | ✅ Done | User data |
+| `src/scripts/sf3/NetworkInitializer.hx` | `NetworkInitializer.cs` | ✅ Done | Network init |
+| `src/scripts/sf3/NetworkConnection.hx` | `NetworkConnection.cs` | ✅ Done | Network connection |
+| `src/scripts/sf3/DisconnectOnExit.hx` | `DisconnectOnExit.cs` | ✅ Done | Disconnect handler |
+| `src/scripts/sf3/Analytics.hx` | `Analytics.cs` | ✅ Done | Analytics |
+| `src/scripts/sf3/TacticsSettings.hx` | `TacticsSettings.cs` | ✅ Done | Tactics settings |
+| `src/scripts/sf3/AudioManager.hx` | `AudioManager.cs` | ✅ Done | Audio manager |
+| `src/scripts/sf3/QualityManager.hx` | `QualityManager.cs` | ✅ Done | Quality manager |
+| `src/scripts/sf3/BattleKey.hx` | `BattleKey.cs` | ✅ Done | Battle key input |
+| `src/scripts/sf3/TimeManager.hx` | `TimeManager.cs` | ✅ Done | Time manager |
+| `src/scripts/sf3/LocalizationInitializer.hx` | `LocalizationInitializer.cs` | ✅ Done | Localization |
+| `src/scripts/sf3/ConstantsSF3.hx` | `ConstantsSF3.cs` | ✅ Done | Constants |
 
 ### Scene Management
 | File | Unity Source | Status | Notes |
