@@ -9,8 +9,8 @@ This file tracks the conversion progress from Unity C# to Haxe/Heaps.
 | File | Unity Source | Status | Notes |
 |------|-------------|--------|-------|
 | `src/Main.hx` | N/A (new) | ✅ Done | Extends `hxd.App`, integrates scene management |
-| `src/scripts/GameTimeController.hx` | `SF3/GameTimeController.cs` | ❌ Pending | Time scaling, frame timing |
-| `src/scripts/GameVariables.hx` | `SF3/GameVariables.cs` | ❌ Pending | Variable system with frame expiration |
+| `src/scripts/GameTimeController.hx` | `SF3/GameTimeController.cs` | ✅ Done | Time scaling, frame timing, pause/resume |
+| `src/scripts/GameVariables.hx` | `SF3/GameVariables.cs` | ✅ Done | Variable system with frame expiration, LocalVariable class |
 
 ### Scene Management
 | File | Unity Source | Status | Notes |
@@ -83,9 +83,9 @@ This file tracks the conversion progress from Unity C# to Haxe/Heaps.
 
 | Task | Status | Notes |
 |------|--------|-------|
-| GitHub Actions CI/CD | ✅ Done | Workflow configured |
-| Build testing | ❌ Pending | Test web build |
-| GitHub Pages deploy | ❌ Pending | After build works |
+| GitHub Actions CI/CD | ✅ Done | Workflow configured, builds pass |
+| Build testing | ✅ Done | Black screen expected (stubs) |
+| GitHub Pages deploy | ✅ Done | Deployed successfully |
 
 ## API Replacements Reference
 
