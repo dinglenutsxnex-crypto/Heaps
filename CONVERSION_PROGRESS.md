@@ -11,6 +11,9 @@ This file tracks the conversion progress from Unity C# to Haxe/Heaps.
 | `src/Main.hx` | N/A (new) | ✅ Done | Extends `hxd.App`, integrates scene management |
 | `src/scripts/GameTimeController.hx` | `SF3/GameTimeController.cs` | ✅ Done | Time scaling, frame timing, pause/resume |
 | `src/scripts/GameVariables.hx` | `SF3/GameVariables.cs` | ✅ Done | Variable system with frame expiration, LocalVariable class |
+| `src/scripts/BootLogger.hx` | `BootLogger.cs` | ✅ Done | Boot logging utility |
+| `src/scripts/GlobalTimer.hx` | `Nekki/Utils/GlobalTimer.cs` | ✅ Done | Server time sync, timer events |
+| `src/scripts/sf3/LoadScreen.hx` | `LoadScreen.cs` | ✅ Done | Loading screen UI |
 
 ### Scene Management
 | File | Unity Source | Status | Notes |

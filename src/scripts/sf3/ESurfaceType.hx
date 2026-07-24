@@ -1,4 +1,9 @@
 package scripts.sf3;
 
-class ESurfaceType {
+enum ESurfaceType {
+	None;
+	Ground;
+	Metal;
+	Stone;
+	Wood;
 }

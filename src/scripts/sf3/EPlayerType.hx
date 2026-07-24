@@ -1,4 +1,10 @@
 package scripts.sf3;
 
-class EPlayerType {
+enum EPlayerType {
+	None;
+	This;
+	Enemy;
+	Parent;
+	Both;
+	Child;
 }
