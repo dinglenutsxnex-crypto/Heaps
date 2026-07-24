@@ -1,8 +1,8 @@
 package scripts.sf3;
 
-class QualityManager {
+class TacticsSettings {
 
 	public static function init():Void {
-		// Initialize quality manager
+		// Initialize tactics settings
 	}
 }
