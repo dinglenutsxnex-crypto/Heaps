@@ -1,6 +1,4 @@
 import scenes.EnterPointScene;
-import scenes.FightScene;
-import scripts.sf3.SceneManager;
 
 class Main extends hxd.App {
 
@@ -18,14 +16,5 @@ class Main extends hxd.App {
 
 	override function update(dt:Float) {
 		// Game update loop
-		// BattleController, ModelsManager, etc. would be updated here
-	}
-
-	override function render(dt:Float) {
-		// Rendering is handled by Heaps scene graph
-	}
-
-	override function resize(width:Int, height:Int) {
-		super.resize(width, height);
 	}
 }

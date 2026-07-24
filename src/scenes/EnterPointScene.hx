@@ -1,7 +1,7 @@
 package scenes;
 
 import scripts.sf3.SceneManager;
-import scripts.sf3.TimerNode;
+import scripts.TimerNode;
 
 class EnterPointScene {
 
