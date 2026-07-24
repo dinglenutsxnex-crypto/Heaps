@@ -8,22 +8,20 @@ class ShadowFormController {
 		instance = this;
 	}
 
-	public static function initialize():Void {
-		if (instance == null) {
-			instance = new ShadowFormController();
-		}
-	}
-
 	public function initialize():Void {
-		// Initialize shadow form
-	}
-
-	public function setLocationShadowFormEnabled(enabled:Bool, instant:Bool):Void {
-		// Set location shadow form
+		// Initialize shadow form controller
 	}
 
 	public function disposeUnused():Void {
-		// Dispose unused
+		// Dispose unused shadow forms
+	}
+
+	public function setLocationShadowFormEnabled(enabled:Bool, instant:Bool):Void {
+		// Set location shadow form enabled
+	}
+
+	public function clearShadowEffect():Void {
+		// Clear shadow effect
 	}
 
 	public function update():Void {

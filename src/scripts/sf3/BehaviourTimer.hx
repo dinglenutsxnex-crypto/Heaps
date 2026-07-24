@@ -9,7 +9,6 @@ class BehaviourTimer {
 	}
 
 	public static function update():Void {
-		// Update timers
 		for (timer in timers) {
 			if (timer.update != null) {
 				timer.update(GameTimeController.deltaTime);
