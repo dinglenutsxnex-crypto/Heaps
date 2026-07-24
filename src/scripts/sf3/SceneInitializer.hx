@@ -1,31 +1,49 @@
 package scripts.sf3;
 
+import scripts.TimerNode;
+
 class SceneInitializer {
 
-	private var locationPrefab:String;
+	private var locationPrefab:Dynamic;
+	private var sceneInitializationObjects:Array<ISceneInitializationObject>;
 
 	public function new() {
 	}
 
 	public function createInitializers():Void {
-		// Initialize scene initialization objects
-		// This would call initialize() on BattleController, BattleCamera, etc.
+		sceneInitializationObjects = [
+			BattleController.instance,
+			BattleCamera.instance,
+			EffectsManager.instance,
+			ModelsManager.instance,
+			BattleInterface.instance
+		];
 	}
 
 	public function initializeNewLocationScene(?onComplete:Void -> Void):Void {
 		// Dispose previous location
 		disposePreviousLocationScene();
-
+		
 		// Load location prefab
 		var locationNameLower = SceneManager.instance.getLocationName().toLowerCase();
+		// In Heaps, we don't have Unity prefabs, so we'll create the location data
 		locationPrefab = "locations/" + locationNameLower + "/" + locationNameLower;
-
+		
+		// Wait for scene config (in Heaps this would be immediate)
 		// Initialize singletons
-		// BattleController.instance.initialize();
-		// BattleCamera.instance.initialize();
-		// ModelsManager.instance.initialize();
-		// BattleInterface.instance.initialize();
-
+		for (initObj in sceneInitializationObjects) {
+			TimerNode.setParent(new TimerNode(Type.typeof(initObj).toString(), "SingleTones"));
+			initObj.initialize();
+		}
+		
+		// Cache modules for Dojo battles
+		// if (BattlesManager.currentBattleType == BattleType.Dojo) {
+		// 	NekkiUIRootModules.instance.cacheModules();
+		// }
+		
+		// Initialize battle
+		BattleController.instance.initBattle();
+		
 		if (onComplete != null) {
 			onComplete();
 		}
@@ -33,7 +51,18 @@ class SceneInitializer {
 
 	private function disposePreviousLocationScene():Void {
 		if (locationPrefab != null) {
-			// Dispose previous location
+			for (initObj in sceneInitializationObjects) {
+				initObj.disposePreviousLocation();
+			}
+			// Unload location prefab
+			GlobalLoad.unload(locationPrefab);
 		}
+		// NekkiUIRootModules.instance.forceClearCache();
+		GlobalLoad.unloadUnusedAssets();
 	}
+}
+
+interface ISceneInitializationObject {
+	function initialize():Void;
+	function disposePreviousLocation():Void;
 }
