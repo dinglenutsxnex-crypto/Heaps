@@ -80,10 +80,3 @@ class BattleInterface {
 		delegate();
 	}
 }
-
-enum ERoundResult {
-	IN_PROGRESS;
-	PLAYER_WIN;
-	ENEMY_WIN;
-	TIME_OUT;
-}

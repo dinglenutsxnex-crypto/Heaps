@@ -11,8 +11,8 @@ class BattleController {
 	private var keyManager:BattleKeyManager;
 	private var shadowFormController:ShadowFormController;
 
-	private var battleEnable:Bool = false;
-	private var eventsEnable:Bool = false;
+	private var battleEnabled:Bool = false;
+	private var eventsEnabled:Bool = false;
 
 	public function new() {
 		instance = this;
@@ -20,19 +20,19 @@ class BattleController {
 		battleEvents = new BattleEventsControl();
 		keyManager = new BattleKeyManager();
 		shadowFormController = new ShadowFormController();
-		battleEnable = false;
-		eventsEnable(true);
+		battleEnabled = false;
+		eventsEnabled(true);
 		FrameSkipController.updateFrame = updateFrame;
 	}
 
 	public function initialize():Void {
 		shadowFormController.initialize();
 		fightController.initialize();
-		battleEnable = false;
+		battleEnabled = false;
 	}
 
 	public function disposePreviousLocation():Void {
-		battleEnable = false;
+		battleEnabled = false;
 		BehaviourTimer.clear();
 		battleEvents.clearEvents();
 	}
@@ -40,14 +40,14 @@ class BattleController {
 	public function initBattle():Void {
 		trace("[InitBattle]");
 		fightController.initFight();
-		battleEnable = true;
+		battleEnabled = true;
 		FrameSkipController.syncFrameCountToTime();
 	}
 
 	private function updateFrame():Void {
 		GameTimeController.updateBattleTime();
 		BehaviourTimer.update();
-		if (battleEnable) {
+		if (battleEnabled) {
 			if (!GameTimeController.gamePaused) {
 				battleEvents.update();
 			}
@@ -61,17 +61,17 @@ class BattleController {
 				shadowFormController.update();
 			}
 		}
-		if (eventsEnable) {
+		if (eventsEnabled) {
 			battleEvents.throwEvents();
 		}
 	}
 
 	public function battleEnable(isEnable:Bool):Void {
-		battleEnable = isEnable;
+		battleEnabled = isEnable;
 	}
 
 	public function eventsEnable(isEnable:Bool):Void {
-		eventsEnable = isEnable;
+		eventsEnabled = isEnable;
 	}
 
 	public static function registerEventCallback(eventType:ETriggerEvents, handler:BattleEventArgs -> Void):Void {
