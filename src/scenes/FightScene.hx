@@ -1,0 +1,4 @@
+package scenes;
+
+class FightScene {
+}
