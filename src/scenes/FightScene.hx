@@ -3,7 +3,7 @@ package scenes;
 import scripts.sf3.SceneInitializer;
 import scripts.sf3.SceneManager;
 import scripts.sf3.ESceneType;
-import scripts.sf3.TimerNode;
+import scripts.TimerNode;
 
 class FightScene {
 

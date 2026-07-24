@@ -1,4 +1,8 @@
 package scripts.sf3;
 
-class ESceneType {
+enum ESceneType {
+	None;
+	Fight;
+	Location;
+	Menu;
 }
