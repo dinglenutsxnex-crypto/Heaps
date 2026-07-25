@@ -38,6 +38,7 @@ jobs:
           cp web/index.html site/index.html
           cp bin/web/game.js site/game.js
           cp -r src/assets site/assets
+          cp -r res site/res
 
       - uses: actions/upload-pages-artifact@v3
         with:

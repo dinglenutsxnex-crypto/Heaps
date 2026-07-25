@@ -1,0 +1,7 @@
+-cp src
+-cp C:/haxe/haxelib/heaps
+-cp C:/haxe/haxelib/format
+-main Main
+-js bin/web/game.js
+-dce full
+-D resourcesPath=res
