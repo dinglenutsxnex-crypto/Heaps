@@ -45,7 +45,7 @@ class SceneManager {
 
 	private function loadLocationSceneProcess():Void {
 		haxe.Timer.delay(function() {
-			sceneInitializer.initializeNewLocationScene(function() {
+			sceneInitializer.initializeNewLocationScene(locationName, function() {
 				if (onLocationSceneLoaded != null) {
 					onLocationSceneLoaded();
 					onLocationSceneLoaded = null;

@@ -44,7 +44,7 @@ class FightScene {
 		sceneInitializer.createInitializers();
 
 		// Initialize the location scene
-		sceneInitializer.initializeNewLocationScene(onLoad);
+		sceneInitializer.initializeNewLocationScene(locationName, onLoad);
 	}
 
 	public function getLocationName():String {

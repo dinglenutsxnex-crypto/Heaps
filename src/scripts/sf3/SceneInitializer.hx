@@ -3,6 +3,7 @@ package scripts.sf3;
 class SceneInitializer {
 
 	private var locationPrefab:Dynamic;
+	private var locationName:String;
 	private var sceneInitializationObjects:Array<ISceneInitializationObject>;
 
 	public function new() {
@@ -18,10 +19,11 @@ class SceneInitializer {
 		];
 	}
 
-	public function initializeNewLocationScene(?onComplete:Void -> Void):Void {
+	public function initializeNewLocationScene(locationName:String, ?onComplete:Void -> Void):Void {
 		disposePreviousLocationScene();
 
-		var locationNameLower = SceneManager.instance.getLocationName().toLowerCase();
+		this.locationName = locationName;
+		var locationNameLower = locationName.toLowerCase();
 		locationPrefab = "locations/" + locationNameLower + "/" + locationNameLower;
 
 		for (initObj in sceneInitializationObjects) {
