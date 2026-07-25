@@ -10,6 +10,11 @@ class SceneInitializer {
 	}
 
 	public function createInitializers():Void {
+		BattleController.instance = new BattleController();
+		BattleCamera.instance = new BattleCamera();
+		EffectsManager.instance = new EffectsManager();
+		ModelsManager.instance = new ModelsManager();
+		BattleInterface.instance = new BattleInterface();
 		sceneInitializationObjects = [
 			BattleController.instance,
 			BattleCamera.instance,
