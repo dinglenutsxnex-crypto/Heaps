@@ -21,6 +21,9 @@ class Main extends hxd.App {
 		var window = js.Browser.window;
 		engine.resize(window.innerWidth, window.innerHeight);
 
+		var bc = new BattleController();
+		bc.initialize();
+
 		enterPoint = new EnterPointScene();
 		enterPoint.scene = s2d;
 		enterPoint.init();
