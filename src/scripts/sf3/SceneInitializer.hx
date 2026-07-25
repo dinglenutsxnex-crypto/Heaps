@@ -10,18 +10,18 @@ class SceneInitializer {
 	}
 
 	public function createInitializers():Void {
-		BattleController.instance = new BattleController();
-		BattleCamera.instance = new BattleCamera();
-		EffectsManager.instance = new EffectsManager();
-		ModelsManager.instance = new ModelsManager();
-		BattleInterface.instance = new BattleInterface();
-		sceneInitializationObjects = [
-			BattleController.instance,
-			BattleCamera.instance,
-			EffectsManager.instance,
-			ModelsManager.instance,
-			BattleInterface.instance
-		];
+		var list:Array<ISceneInitializationObject> = [];
+		if (BattleController.instance == null) BattleController.instance = new BattleController();
+		list.push(BattleController.instance);
+		if (BattleCamera.instance == null) BattleCamera.instance = new BattleCamera();
+		list.push(BattleCamera.instance);
+		if (EffectsManager.instance == null) EffectsManager.instance = new EffectsManager();
+		list.push(EffectsManager.instance);
+		if (ModelsManager.instance == null) ModelsManager.instance = new ModelsManager();
+		list.push(ModelsManager.instance);
+		if (BattleInterface.instance == null) BattleInterface.instance = new BattleInterface();
+		list.push(BattleInterface.instance);
+		sceneInitializationObjects = list;
 	}
 
 	public function initializeNewLocationScene(locationName:String, ?onComplete:Void -> Void):Void {
@@ -31,8 +31,12 @@ class SceneInitializer {
 		var locationNameLower = locationName.toLowerCase();
 		locationPrefab = "locations/" + locationNameLower + "/" + locationNameLower;
 
-		for (initObj in sceneInitializationObjects) {
-			initObj.initialize();
+		if (sceneInitializationObjects != null) {
+			for (initObj in sceneInitializationObjects) {
+				if (initObj != null) {
+					initObj.initialize();
+				}
+			}
 		}
 
 		BattleController.instance.initBattle();
@@ -43,9 +47,11 @@ class SceneInitializer {
 	}
 
 	private function disposePreviousLocationScene():Void {
-		if (locationPrefab != null) {
+		if (locationPrefab != null && sceneInitializationObjects != null) {
 			for (initObj in sceneInitializationObjects) {
-				initObj.disposePreviousLocation();
+				if (initObj != null) {
+					initObj.disposePreviousLocation();
+				}
 			}
 			GlobalLoad.unload(locationPrefab);
 		}
