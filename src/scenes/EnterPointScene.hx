@@ -1,37 +1,26 @@
 package scenes;
 
-import scripts.sf3.SceneManager;
-import scripts.TimerNode;
+import h2d.Scene;
+import h2d.Bitmap;
+import h2d.Tile;
+import h2d.Graphics;
+import hxd.Res;
 
 class EnterPointScene {
 
 	public static var instance:EnterPointScene;
+	public var scene:Scene;
+	public var fightScene:FightScene;
 
 	public function new() {
 		instance = this;
 	}
 
 	public function init():Void {
-		#if debug
-		trace("Starting game initialization...");
-		#end
+		trace("Starting game...");
 
-		// Initialize scene manager
-		SceneManager.createObject();
-
-		// Create the fight scene
-		var fightScene = new FightScene();
+		fightScene = new FightScene();
+		fightScene.scene = scene;
 		fightScene.init();
-
-		// Load the initial location
-		fightScene.loadLocationScene("arena_01", function() {
-			#if debug
-			trace("Location scene loaded successfully.");
-			#end
-		});
-
-		#if debug
-		trace("Game initialization complete.");
-		#end
 	}
 }
