@@ -12,6 +12,9 @@ class Main extends hxd.App {
 	override function init() {
 		engine.backgroundColor = 0xFF202040;
 
+		var window = js.Browser.window;
+		engine.resize(window.innerWidth, window.innerHeight);
+
 		var g = new Graphics(s2d);
 		g.beginFill(0x404080);
 		g.drawRect(0, 0, 200, 200);
