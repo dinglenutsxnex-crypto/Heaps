@@ -1,6 +1,9 @@
 package scripts.sf3;
 
-class ModelsManager {
+import scripts.sf3.gamemodels.Model;
+import scripts.sf3.gamemodels.ModelInfo;
+
+class ModelsManager implements ISceneInitializationObject {
 
 	public static var instance:ModelsManager;
 
@@ -13,11 +16,9 @@ class ModelsManager {
 	}
 
 	public function initialize():Void {
-		// Initialize models manager
 	}
 
 	public function disposePreviousLocation():Void {
-		// Dispose previous location models
 		player = null;
 		enemy = null;
 		models = [];
@@ -32,18 +33,15 @@ class ModelsManager {
 	}
 
 	public function createBattleModels(playerInfo:Dynamic, enemyInfo:Dynamic):Void {
-		// Create player model
 		player = new Model(new ModelInfo(), true);
 		player.isPlayer = true;
 		player.isControl = true;
 		models.push(player);
 
-		// Create enemy model
 		enemy = new Model(new ModelInfo(), false);
 		enemy.isPlayer = false;
 		models.push(enemy);
 
-		// Set enemies
 		player.setEnemy(enemy);
 		enemy.setEnemy(player);
 	}
@@ -55,10 +53,8 @@ class ModelsManager {
 	}
 
 	public function enableModelsColliders(enable:Bool):Void {
-		// Enable/disable colliders
 	}
 
 	public function setModelsRagdollSleepState(sleep:Bool, delay:Int):Void {
-		// Set ragdoll sleep state
 	}
 }

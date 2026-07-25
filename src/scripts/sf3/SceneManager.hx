@@ -1,7 +1,6 @@
 package scripts.sf3;
 
 import scenes.FightScene;
-import scripts.TimerNode;
 
 class SceneManager {
 
@@ -27,18 +26,16 @@ class SceneManager {
 	public function loadLocationScene(locationNameValue:String, ?onLoad:Void -> Void):Void {
 		onLocationSceneLoaded = onLoad;
 		locationName = locationNameValue;
-		
+
 		if (sceneType == ESceneType.None) {
 			loadFightScene();
 		}
-		
+
 		loadLocationSceneProcess();
 	}
 
 	private function loadFightScene():Void {
 		sceneType = ESceneType.Fight;
-		// In Heaps, the fight scene is already loaded
-		// We just need to call onSceneLoaded if set
 		if (onSceneLoaded != null) {
 			onSceneLoaded();
 			onSceneLoaded = null;
@@ -47,21 +44,14 @@ class SceneManager {
 	}
 
 	private function loadLocationSceneProcess():Void {
-		TimerNode.clear();
-		TimerNode.setParent(new TimerNode("SceneLoader"));
-		
-		// Create initializers (already done if fight scene just loaded)
-		// Wait for previous frame to complete
 		haxe.Timer.delay(function() {
 			sceneInitializer.initializeNewLocationScene(function() {
 				if (onLocationSceneLoaded != null) {
 					onLocationSceneLoaded();
 					onLocationSceneLoaded = null;
 				}
-				TimerNode.logHierarchy();
-				TimerNode.clear();
 			});
-		}, 0.016);
+		}, 16);
 	}
 
 	public function getLocationName():String {

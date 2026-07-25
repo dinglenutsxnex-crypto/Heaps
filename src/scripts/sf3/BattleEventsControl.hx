@@ -6,7 +6,7 @@ class BattleEventsControl {
 
 	public static var instance:BattleEventsControl;
 
-	private var eventCallbacks:Map<ETriggerEvents, Array<BattleEventArgs -> Void>> = new Map<ETriggerEvents, Array<BattleEventArgs -> Void>>();
+	private var eventCallbacks:Map<Int, Array<BattleEventArgs -> Void>> = new Map<Int, Array<BattleEventArgs -> Void>>();
 	private var allEventsCallbacks:Array<BattleEventArgs -> Void> = [];
 
 	public function new() {
@@ -22,14 +22,14 @@ class BattleEventsControl {
 		allEventsCallbacks = [];
 	}
 
-	public function registerEventCallback(eventType:ETriggerEvents, handler:BattleEventArgs -> Void):Void {
+	public function registerEventCallback(eventType:Int, handler:BattleEventArgs -> Void):Void {
 		if (!eventCallbacks.exists(eventType)) {
 			eventCallbacks.set(eventType, []);
 		}
 		eventCallbacks.get(eventType).push(handler);
 	}
 
-	public function removeEventCallback(eventType:ETriggerEvents, handler:BattleEventArgs -> Void):Void {
+	public function removeEventCallback(eventType:Int, handler:BattleEventArgs -> Void):Void {
 		if (eventCallbacks.exists(eventType)) {
 			var handlers = eventCallbacks.get(eventType);
 			handlers.remove(handler);

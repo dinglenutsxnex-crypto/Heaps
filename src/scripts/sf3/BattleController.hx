@@ -2,7 +2,7 @@ package scripts.sf3;
 
 import scripts.sf3.moves.ETriggerEvents;
 
-class BattleController {
+class BattleController implements ISceneInitializationObject {
 
 	public static var instance:BattleController;
 
@@ -21,7 +21,7 @@ class BattleController {
 		keyManager = new BattleKeyManager();
 		shadowFormController = new ShadowFormController();
 		battleEnabled = false;
-		eventsEnabled(true);
+		eventsEnabled = true;
 		FrameSkipController.updateFrame = updateFrame;
 	}
 
@@ -45,7 +45,7 @@ class BattleController {
 	}
 
 	private function updateFrame():Void {
-		GameTimeController.updateBattleTime();
+		GameTimeController.updateBattleTime(GameTimeController.FIXED_DELTA_TIME);
 		BehaviourTimer.update();
 		if (battleEnabled) {
 			if (!GameTimeController.gamePaused) {
@@ -74,11 +74,11 @@ class BattleController {
 		eventsEnabled = isEnable;
 	}
 
-	public static function registerEventCallback(eventType:ETriggerEvents, handler:BattleEventArgs -> Void):Void {
+	public static function registerEventCallback(eventType:Int, handler:BattleEventArgs -> Void):Void {
 		instance.battleEvents.registerEventCallback(eventType, handler);
 	}
 
-	public static function removeEventCallback(eventType:ETriggerEvents, handler:BattleEventArgs -> Void):Void {
+	public static function removeEventCallback(eventType:Int, handler:BattleEventArgs -> Void):Void {
 		instance.battleEvents.removeEventCallback(eventType, handler);
 	}
 
@@ -87,7 +87,7 @@ class BattleController {
 	}
 
 	public static function throwEvent(args:BattleEventArgs):Void {
-		if (instance != null && instance.eventsEnable) {
+		if (instance != null && instance.eventsEnabled) {
 			instance.battleEvents.pushEvent(args);
 		}
 	}
@@ -101,7 +101,7 @@ class BattleController {
 
 	public static function resumeGame():Void {
 		GameTimeController.gameTimeResume();
-		AudioManager.instance.setPitch(1.0);
+		if (AudioManager.instance != null) AudioManager.instance.setPitch(1.0);
 		BattleKeyManager.unpause();
 		ModelsManager.instance.enableModelsColliders(true);
 		ModelsManager.instance.setModelsRagdollSleepState(false, 0);

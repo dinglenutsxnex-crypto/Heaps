@@ -12,13 +12,11 @@ class GameTimeController {
 
 	private static var lastSystemTimeScale:Float = 1.0;
 
-	private static var gamePaused:Bool = false;
+	public static var gamePaused(get, never):Bool;
 
-	private static var systemPaused:Bool = false;
+	private static var _gamePaused:Bool = false;
 
-	private static var enableFlag:Bool = false;
-
-	private static var disableFlag:Bool = false;
+	private static var _systemPaused:Bool = false;
 
 	public static var gameTimeDelta:Float = 0.0;
 
@@ -41,10 +39,6 @@ class GameTimeController {
 	public static var unscaledDeltaTime:Float = 0.0;
 
 	private static var _frameCount:Int = 0;
-
-	private static var _gamePaused:Bool = false;
-
-	private static var _systemPaused:Bool = false;
 
 	public static function get_deltaTimePaused():Float {
 		return (!_gamePaused) ? deltaTime : 0.0;
@@ -84,7 +78,7 @@ class GameTimeController {
 
 	private static function updateCache(dt:Float):Void {
 		deltaTime = dt;
-		frameCount++;
+		_frameCount++;
 		time += dt;
 		unscaledTime += dt;
 		unscaledDeltaTime = dt;

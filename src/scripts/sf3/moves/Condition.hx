@@ -5,8 +5,10 @@ class Condition {
 	public var conditionType:String = "";
 	public var parameters:Map<String, Dynamic> = new Map<String, Dynamic>();
 
+	public function new() {
+	}
+
 	public static function init():Void {
-		// Initialize condition system
 	}
 
 	public function check():Bool {
@@ -25,22 +27,18 @@ class Condition {
 	}
 
 	private function checkHealth():Bool {
-		// Check health condition
 		return true;
 	}
 
 	private function checkDistance():Bool {
-		// Check distance condition
 		return true;
 	}
 
 	private function checkTime():Bool {
-		// Check time condition
 		return true;
 	}
 
 	private function checkVariable():Bool {
-		// Check game variable condition
 		return true;
 	}
 
@@ -50,8 +48,11 @@ class Condition {
 			condition.conditionType = conditionData.conditionType;
 		}
 		if (conditionData.parameters != null) {
-			for (key in conditionData.parameters.keys()) {
-				condition.parameters.set(key, conditionData.parameters.get(key));
+			var params:Dynamic = conditionData.parameters;
+			Reflect.callMethod(params, Reflect.field(params, "keys"), []);
+			var keyIter:Iterator<String> = Reflect.field(params, "keys")();
+			for (key in keyIter) {
+				condition.parameters.set(key, Reflect.field(params, key));
 			}
 		}
 		return condition;

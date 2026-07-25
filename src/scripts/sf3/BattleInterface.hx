@@ -1,6 +1,6 @@
 package scripts.sf3;
 
-class BattleInterface {
+class BattleInterface implements ISceneInitializationObject {
 
 	public static var instance:BattleInterface;
 
@@ -56,11 +56,11 @@ class BattleInterface {
 		if (callback != null) callback();
 	}
 
-	public function showEndRoundFight(callback:Void -> Void, result:ERoundResult):Void {
+	public function showEndRoundFight(callback:Void -> Void, result:RoundController.ERoundResult):Void {
 		if (callback != null) callback();
 	}
 
-	public function showEndRoundFight_PVP(callback:Void -> Void, result:ERoundResult, winnerName:String):Void {
+	public function showEndRoundFight_PVP(callback:Void -> Void, result:RoundController.ERoundResult, winnerName:String):Void {
 		if (callback != null) callback();
 	}
 
@@ -74,9 +74,5 @@ class BattleInterface {
 
 	public function showEndGame(onShow:Void -> Void, fightResult:Dynamic):Void {
 		onShow();
-	}
-
-	public function showEndGame(delegate:Void -> Void, fightResult:Dynamic):Void {
-		delegate();
 	}
 }

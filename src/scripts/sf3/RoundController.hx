@@ -29,38 +29,29 @@ class RoundController {
 	}
 
 	public function update():Void {
-		// Update round controller
 	}
 
 	public function startFight():Void {
-		// Start fight
 	}
 
 	public function endRoundFight():Void {
-		// End round fight
 	}
 
 	public function clearRoundData(fight:Dynamic):Void {
-		// Clear round data
 	}
 
 	public function initNewRound(fight:Dynamic):Void {
-		// Initialize new round
 		currentRoundNumber++;
-		// currentRound = fight.GetRound(playerWinCount + 1);
 	}
 
 	public function initBattleCamera(isFirstRound:Bool):Void {
-		// Initialize battle camera
 	}
 
 	public function showStartRoundGUI(onComplete:Void -> Void):Void {
-		// Show start round GUI
 		if (onComplete != null) onComplete();
 	}
 
 	public function showEndRoundGUI(onComplete:Void -> Void):Void {
-		// Show end round GUI
 		if (onComplete != null) onComplete();
 	}
 
@@ -68,19 +59,16 @@ class RoundController {
 		switch (winner) {
 			case ERoundResult.Win:
 				playerWinCount++;
-				break;
 			case ERoundResult.Loss:
 				enemyWinCount++;
-				break;
+			default:
 		}
 	}
 
 	public function updateRewardCounters():Void {
-		// Update reward counters
 	}
 
 	public function checkEndRound():Int {
-		// Check if round should end
 		return 0;
 	}
 }

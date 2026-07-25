@@ -1,24 +1,19 @@
 package scripts.sf3;
 
-import haxe.ds.IntMap;
-import haxe.ds.StringMap;
-
 class GameVariables {
 
 	public static function clearGameVariables():Void {
-		inGameVariables = new IntMap<IntMap<LocalVariable>>();
-		variablesToCheck = new IntMap<IntMap<Array<Int -> String -> Void>>>();
+		inGameVariables = new Map<Int, Map<String, LocalVariable>>();
+		variablesToCheck = new Map<Int, Map<String, Array<Int -> String -> Void>>>();
 	}
 
 	public static function update():Void {
-		for (ownerEntry in inGameVariables) {
-			var ownerId = ownerEntry._1;
-			var variables = ownerEntry._2;
+		for (ownerId in inGameVariables.keys()) {
+			var variables = inGameVariables.get(ownerId);
 			var keysToRemove = [];
 			for (key in variables.keys()) {
 				var variable = variables.get(key);
 				if (variable.update()) {
-					// BattleController.ThrowEvent(new BattleEventArgs(ETriggerEvents.EVENT_VARIABLE_DESTRUCTION, ownerId, key));
 					keysToRemove.push(key);
 				}
 			}
@@ -30,7 +25,7 @@ class GameVariables {
 
 	public static function addVariable(ownerID:Int, variableName:String, variableValue:Dynamic, variableFrames:Int = -1):Void {
 		if (!inGameVariables.exists(ownerID)) {
-			inGameVariables.set(ownerID, new StringMap<LocalVariable>());
+			inGameVariables.set(ownerID, new Map<String, LocalVariable>());
 		}
 		var ownerVars = inGameVariables.get(ownerID);
 		if (ownerVars.exists(variableName)) {
@@ -85,7 +80,7 @@ class GameVariables {
 
 	public static function subscribe(ownerID:Int, varName:String, handler:Int -> String -> Void):Void {
 		if (!variablesToCheck.exists(ownerID)) {
-			variablesToCheck.set(ownerID, new StringMap<Array<Int -> String -> Void>>());
+			variablesToCheck.set(ownerID, new Map<String, Array<Int -> String -> Void>>());
 		}
 		if (!variablesToCheck.get(ownerID).exists(varName)) {
 			variablesToCheck.get(ownerID).set(varName, []);
@@ -100,9 +95,9 @@ class GameVariables {
 		}
 	}
 
-	private static var inGameVariables:IntMap<StringMap<LocalVariable>> = new IntMap<StringMap<LocalVariable>>();
+	private static var inGameVariables:Map<Int, Map<String, LocalVariable>> = new Map<Int, Map<String, LocalVariable>>();
 
-	private static var variablesToCheck:IntMap<StringMap<Array<Int -> String -> Void>>> = new IntMap<StringMap<Array<Int -> String -> Void>>>();
+	private static var variablesToCheck:Map<Int, Map<String, Array<Int -> String -> Void>>> = new Map<Int, Map<String, Array<Int -> String -> Void>>>();
 }
 
 class LocalVariable {

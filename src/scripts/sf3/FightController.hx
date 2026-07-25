@@ -1,5 +1,7 @@
 package scripts.sf3;
 
+import scripts.sf3.moves.ETriggerEvents;
+
 enum EFightStage {
 	None;
 	FightStart;
@@ -48,19 +50,15 @@ class FightController {
 		switch (stageValue) {
 			case EFightStage.FightEnd:
 				setFightEnd(surrender, winnerId);
-				break;
 			case EFightStage.RoundStart:
 				roundStartProcess();
-				break;
 			case EFightStage.RoundEnd:
 				setRoundEnd();
-				break;
 			case EFightStage.RoundFightStart:
 				setRoundFightStart();
-				break;
 			case EFightStage.RoundFightEnd:
 				setRoundFightEnd();
-				break;
+			default:
 		}
 		BattleController.throwEvent(new BattleEventArgs(ETriggerEvents.EVENT_STAGE_CHANGE, -1, stageValue));
 		trace("SetFightStage [" + stageValue + "]");
@@ -78,26 +76,23 @@ class FightController {
 	}
 
 	private function roundStartProcess():Void {
-		// Start round process
 		setFightStage(EFightStage.RoundFightStart);
 	}
 
 	private function setRoundEnd():Void {
 		roundController.updateRewardCounters();
-		// Check if fight should end
 		setFightStage(EFightStage.FightEnd);
 	}
 
 	private function setFightEnd(surrender:Bool = false, winnerId:Null<Int> = null):Void {
 		fightStage = EFightStage.FightEnd;
-		// Fight end logic
 	}
 
 	public function setFightResult(winnerId:Int, surrender:Bool):Void {
 		setFightStage(EFightStage.FightEnd, surrender, winnerId);
 	}
 
-	public function winCurrentRound(winner:ERoundResult):Void {
+	public function winCurrentRound(winner:scripts.sf3.RoundController.ERoundResult):Void {
 		roundController.setRoundWinner(winner);
 		setFightStage(EFightStage.RoundFightEnd);
 	}

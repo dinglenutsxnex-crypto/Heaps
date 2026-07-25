@@ -1,6 +1,8 @@
 package scripts.sf3;
 
-class BattleCamera {
+import scripts.sf3.gamemodels.Model;
+
+class BattleCamera implements ISceneInitializationObject {
 
 	public static var instance:BattleCamera;
 
@@ -24,7 +26,6 @@ class BattleCamera {
 	}
 
 	public function roundEndTweenMotion():Void {
-		// Round end tween motion
 	}
 
 	public function roundEndTweenIsReady():Bool {
@@ -32,19 +33,15 @@ class BattleCamera {
 	}
 
 	public static function moveToDefault(instant:Bool):Void {
-		// Move to default position
 	}
 
 	public static function moveToSpawnCentre(instant:Bool):Void {
-		// Move to spawn centre
 	}
 
 	public function setCameraBlocked(blocked:Bool):Void {
-		// Set camera blocked
 	}
 
 	public function update(dt:Float):Void {
-		// Update camera
 	}
 
 	public function initialize():Void {
@@ -52,7 +49,6 @@ class BattleCamera {
 	}
 
 	public function disposePreviousLocation():Void {
-		// Dispose previous location data
 		player = null;
 		enemy = null;
 	}

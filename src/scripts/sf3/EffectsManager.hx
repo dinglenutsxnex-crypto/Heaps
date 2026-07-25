@@ -1,6 +1,6 @@
 package scripts.sf3;
 
-class EffectsManager {
+class EffectsManager implements ISceneInitializationObject {
 
 	public static var instance:EffectsManager;
 
