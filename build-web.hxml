@@ -3,3 +3,4 @@
 -main Main
 -js bin/web/game.js
 -dce full
+-D resourcesPath=res
