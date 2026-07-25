@@ -1,4 +1,11 @@
 import scenes.EnterPointScene;
+import scenes.FightScene;
+import scripts.sf3.GameTimeController;
+import scripts.sf3.FrameSkipController;
+import scripts.sf3.BattleController;
+import scripts.sf3.ModelsManager;
+import scripts.sf3.GameVariables;
+import scripts.sf3.BehaviourTimer;
 
 class Main extends hxd.App {
 
@@ -20,5 +27,12 @@ class Main extends hxd.App {
 	}
 
 	override function update(dt:Float) {
+		if (dt > 0.1) dt = 0.1;
+		GameTimeController.update(dt);
+		FrameSkipController.moveToNextFrame();
+
+		if (FightScene.instance != null) {
+			FightScene.instance.update();
+		}
 	}
 }

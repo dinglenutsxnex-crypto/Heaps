@@ -1,4 +1,8 @@
 package scripts.sf3;
 
-class ERoundResult {
+enum ERoundResult {
+	InProgress;
+	Win;
+	Loss;
+	Draw;
 }

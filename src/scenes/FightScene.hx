@@ -5,27 +5,38 @@ import h2d.Bitmap;
 import h2d.Graphics;
 import h2d.Text;
 import h2d.Tile;
+import h2d.Object;
 import hxd.res.DefaultFont;
 
 import Assets;
-import scripts.sf3.SceneInitializer;
-import scripts.sf3.BattleController;
-import scripts.sf3.BattleInterface;
-import scripts.sf3.BattleKeyManager;
-import scripts.sf3.GameTimeController;
+import scripts.sf3.RoundController;
+import scripts.sf3.FightController;
+import scripts.sf3.ModelsManager;
+import scripts.sf3.ERoundResult;
 
 class FightScene {
 
 	public static var instance:FightScene;
 	public var scene:Scene;
 
-	private var sceneInitializer:SceneInitializer;
+	private var arenaBg:Bitmap;
+	private var darknessOverlay:Bitmap;
 	private var playerHpFill:Graphics;
 	private var enemyHpFill:Graphics;
+	private var playerHpBg:Bitmap;
+	private var enemyHpBg:Bitmap;
 	private var roundText:Text;
 	private var timerText:Text;
 	private var playerNameText:Text;
 	private var enemyNameText:Text;
+	private var playerWinsText:Text;
+	private var enemyWinsText:Text;
+	private var playerHpLabel:Text;
+	private var enemyHpLabel:Text;
+	private var resultText:Text;
+	private var resultContainer:Object;
+
+	private var initialized:Bool = false;
 
 	public function new() {
 		instance = this;
@@ -35,32 +46,32 @@ class FightScene {
 		trace("Fight scene init - loading textures");
 
 		Assets.loadImage("assets/textures/ui/infobattle/bamboo.png", function(t) {
-			var arenaBg = new Bitmap(t, scene);
+			arenaBg = new Bitmap(t, scene);
 			arenaBg.scaleX = 1920 / t.width;
 			arenaBg.scaleY = 1080 / t.height;
 		});
 
 		Assets.loadImage("assets/textures/ui/ui_darkness.png", function(t) {
-			var darkness = new Bitmap(t, scene);
-			darkness.scaleX = 1920 / t.width;
-			darkness.scaleY = 1080 / t.height;
-			darkness.alpha = 0.55;
+			darknessOverlay = new Bitmap(t, scene);
+			darknessOverlay.scaleX = 1920 / t.width;
+			darknessOverlay.scaleY = 1080 / t.height;
+			darknessOverlay.alpha = 0.55;
 		});
 
 		Assets.loadImage("assets/textures/ui/shadow_bar_glow.png", function(t) {
-			var playerBg = new Bitmap(t, scene);
-			playerBg.x = 80;
-			playerBg.y = 80;
-			playerBg.scaleX = 440 / t.width;
-			playerBg.scaleY = 36 / t.height;
-			playerBg.alpha = 0.25;
+			playerHpBg = new Bitmap(t, scene);
+			playerHpBg.x = 80;
+			playerHpBg.y = 80;
+			playerHpBg.scaleX = 440 / t.width;
+			playerHpBg.scaleY = 36 / t.height;
+			playerHpBg.alpha = 0.25;
 
-			var enemyBg = new Bitmap(t, scene);
-			enemyBg.x = 1400;
-			enemyBg.y = 80;
-			enemyBg.scaleX = 440 / t.width;
-			enemyBg.scaleY = 36 / t.height;
-			enemyBg.alpha = 0.25;
+			enemyHpBg = new Bitmap(t, scene);
+			enemyHpBg.x = 1400;
+			enemyHpBg.y = 80;
+			enemyHpBg.scaleX = 440 / t.width;
+			enemyHpBg.scaleY = 36 / t.height;
+			enemyHpBg.alpha = 0.25;
 		});
 
 		playerHpFill = new Graphics(scene);
@@ -77,7 +88,8 @@ class FightScene {
 		enemyHpFill.x = 1405;
 		enemyHpFill.y = 84;
 
-		Assets.loadImage("assets/textures/ui/logSF3.png", function(t) {
+		var logoPath = "assets/textures/ui/logSF3.png";
+		Assets.loadImage(logoPath, function(t) {
 			var logo = new Bitmap(t, scene);
 			logo.x = 760;
 			logo.y = 10;
@@ -101,6 +113,28 @@ class FightScene {
 		enemyNameText.textColor = 0xFFFFFF;
 		enemyNameText.textAlign = h2d.Align.Right;
 
+		playerWinsText = new Text(font, scene);
+		playerWinsText.x = 85;
+		playerWinsText.y = 145;
+		playerWinsText.textColor = 0xFFDD00;
+
+		enemyWinsText = new Text(font, scene);
+		enemyWinsText.x = 1835;
+		enemyWinsText.y = 145;
+		enemyWinsText.textColor = 0xFFDD00;
+		enemyWinsText.textAlign = h2d.Align.Right;
+
+		playerHpLabel = new Text(font, scene);
+		playerHpLabel.x = 85;
+		playerHpLabel.y = 165;
+		playerHpLabel.textColor = 0xAAAAAA;
+
+		enemyHpLabel = new Text(font, scene);
+		enemyHpLabel.x = 1835;
+		enemyHpLabel.y = 165;
+		enemyHpLabel.textColor = 0xAAAAAA;
+		enemyHpLabel.textAlign = h2d.Align.Right;
+
 		roundText = new Text(font, scene);
 		roundText.text = "ROUND 1";
 		roundText.x = 960;
@@ -115,11 +149,81 @@ class FightScene {
 		timerText.textColor = 0xFFFFFF;
 		timerText.textAlign = h2d.Align.Center;
 
+		resultContainer = new Object(scene);
+		resultText = new Text(font, resultContainer);
+		resultText.textAlign = h2d.Align.Center;
+		resultText.x = 960;
+		resultText.y = 480;
+		resultText.textColor = 0xFFFFFF;
+		resultContainer.visible = false;
+
 		var centerLine = new Graphics(scene);
 		centerLine.beginFill(0xffffff, 0.12);
 		centerLine.drawRect(0, 540, 1920, 2);
 		centerLine.endFill();
 
+		initialized = true;
 		trace("Fight scene UI created with real textures");
+	}
+
+	public function update():Void {
+		if (!initialized) return;
+
+		var rc = RoundController.instance;
+		var mm = ModelsManager.instance;
+
+		if (rc != null) {
+			roundText.text = "ROUND " + rc.currentRoundNumber;
+			timerText.text = "" + Math.ceil(rc.roundTimeLeft);
+
+			playerWinsText.text = "Wins: " + rc.playerWinCount;
+			enemyWinsText.text = "Wins: " + rc.enemyWinCount;
+		}
+
+		if (mm != null) {
+			if (mm.player != null) {
+				var hpPct = mm.player.hp / mm.player.maxHp;
+				if (hpPct < 0) hpPct = 0;
+				playerHpFill.scaleX = hpPct;
+				playerHpLabel.text = "HP: " + Math.ceil(mm.player.hp);
+			}
+			if (mm.enemy != null) {
+				var hpPct = mm.enemy.hp / mm.enemy.maxHp;
+				if (hpPct < 0) hpPct = 0;
+				enemyHpFill.scaleX = hpPct;
+				enemyHpLabel.text = "HP: " + Math.ceil(mm.enemy.hp);
+			}
+		}
+	}
+
+	public function showRoundResult(result:ERoundResult, roundNum:Int):Void {
+		resultContainer.visible = true;
+		switch (result) {
+			case ERoundResult.Win:
+				resultText.text = "ROUND " + roundNum + "\nYOU WIN!";
+				resultText.textColor = 0x33DD77;
+			case ERoundResult.Loss:
+				resultText.text = "ROUND " + roundNum + "\nYOU LOSE";
+				resultText.textColor = 0xDD4444;
+			case ERoundResult.Draw:
+				resultText.text = "ROUND " + roundNum + "\nDRAW";
+				resultText.textColor = 0xFFFF00;
+			default:
+				resultContainer.visible = false;
+		}
+		resultText.textAlign = h2d.Align.Center;
+	}
+
+	public function showEndGame():Void {
+		resultContainer.visible = true;
+		var rc = RoundController.instance;
+		if (rc != null && rc.playerWinCount > rc.enemyWinCount) {
+			resultText.text = "FIGHT OVER\nVICTORY!";
+			resultText.textColor = 0x33DD77;
+		} else {
+			resultText.text = "FIGHT OVER\nDEFEAT";
+			resultText.textColor = 0xDD4444;
+		}
+		resultText.textAlign = h2d.Align.Center;
 	}
 }

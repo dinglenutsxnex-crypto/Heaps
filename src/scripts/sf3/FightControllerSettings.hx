@@ -1,10 +1,11 @@
 package scripts.sf3;
 
 class FightControllerSettings {
-	public var roundsToWin:Int = 2;
-	public var roundsToLose:Int = 1;
-	public var roundTime:Int = 99;
-	public var fightType:Int = 0;
+	public static var roundsCount:Int = 3;
+	public static var roundTime:Int = 99;
+	public static var showFightStart:Bool = true;
+	public static var isScoreFight:Bool = false;
+	public static var isTimeoutWin:Bool = true;
 
 	public function new() {
 	}

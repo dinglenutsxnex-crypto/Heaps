@@ -1,10 +1,8 @@
 package scenes;
 
 import h2d.Scene;
-import h2d.Bitmap;
-import h2d.Tile;
-import h2d.Graphics;
-import hxd.Res;
+import scripts.sf3.BattleController;
+import scripts.sf3.ModelsManager;
 
 class EnterPointScene {
 
@@ -19,8 +17,13 @@ class EnterPointScene {
 	public function init():Void {
 		trace("Starting game...");
 
+		ModelsManager.instance = new ModelsManager();
+		ModelsManager.instance.createBattleModels(null, null);
+
 		fightScene = new FightScene();
 		fightScene.scene = scene;
 		fightScene.init();
+
+		BattleController.instance.initBattle();
 	}
 }
